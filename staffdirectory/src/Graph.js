@@ -5,7 +5,8 @@ import differenceWith from "lodash/differenceWith";
 import vis from "vis-network";
 import uuid from "uuid";
 import PropTypes from "prop-types";
-
+import { Network } from 'vis-network/peer/esm/vis-network';
+import {DataSet} from 'vis-data/peer/esm/vis-data';
 class Graph extends Component {
   constructor(props) {
     super(props);
@@ -18,9 +19,9 @@ class Graph extends Component {
   }
 
   componentDidMount() {
-    this.edges = new vis.DataSet();
+    this.edges = new DataSet();
     this.edges.add(this.props.graph.edges);
-    this.nodes = new vis.DataSet();
+    this.nodes = new DataSet();
     this.nodes.add(this.props.graph.nodes);
     this.updateGraph();
   }
@@ -105,7 +106,7 @@ class Graph extends Component {
     // merge user provied options with our default ones
     let options = defaultsDeep(defaultOptions, this.props.options);
 
-    this.Network = new vis.Network(
+    this.Network = new Network(
       this.container.current,
       Object.assign({}, this.props.graph, {
         edges: this.edges,
